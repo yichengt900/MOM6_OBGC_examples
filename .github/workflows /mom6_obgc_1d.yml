@@ -2,9 +2,9 @@ name: Continuous Delivery of mom6_obgc_1d Container
 
 on:
   push:
-    branches: [ "feature/docker" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "feature/docker" ]
+    branches: [ "main" ]
 
 jobs:
   deploy:
