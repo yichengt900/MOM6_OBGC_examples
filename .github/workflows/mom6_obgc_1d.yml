@@ -38,23 +38,17 @@ jobs:
         df -h
         echo "docker image build ..."
         docker build --file "./tests/Dockerfile.ci" -t mom6_obgc_1d:develop .
-
+        
     - name: Check Docker Image
       run: | 
        docker images 
        if [[ $(docker image inspect mom6_obgc_1d:develop) ]]; then
-            echo "mom6_obgc_1d:develop generated ..."
-#        if [[ ${{ github.event_name }} == "push" ]]; then
-#            # Push tag when PR get merged or directly push  
-#            echo "docker push tag ..."
-#            docker tag mom6_obgc_1d:develop clouden90/mom6_obgc_1d:develop
-#            docker push clouden90/mom6_obgc_1d:develop
-#        fi            
+            echo "mom6_obgc_1d:develop generated ..."          
        else
-        echo "mom6_obgc_1d:develop was not generated ..."
-        exit 1
+            echo "mom6_obgc_1d:develop was not generated ..."
+            exit 1
        fi
 
 #    - name: Docker Logout
 #      run: |
-#       docker logout          
+#       docker logout    
