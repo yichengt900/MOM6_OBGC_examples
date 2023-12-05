@@ -2,6 +2,10 @@ From clouden90/1d_mom6_cobalt:v0.1
 
 SHELL ["/bin/bash","-c"]
 
+USER root
+
+RUN apt update; apt install -y wget
+
 USER builder
 
 COPY --chown=builder:builder . /opt/MOM6_OBGC_examples
