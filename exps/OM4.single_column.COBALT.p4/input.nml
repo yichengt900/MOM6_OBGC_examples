@@ -5,6 +5,7 @@
          restart_output_dir = 'RESTART',
          parameter_filename = 'MOM_input',
                               'MOM_saltrestore',
+                              'MOM_layout', 
                               'MOM_override'
 /
 
@@ -14,10 +15,11 @@
         restart_input_dir = 'INPUT/',
         restart_output_dir = 'RESTART/',
         parameter_filename = 'SIS_input',
+                             'SIS_layout',
                              'SIS_override' /
 
  &atmos_model_nml
-           layout = 0, 0
+           layout = 1, 1
 /
 
  &coupler_nml
@@ -34,17 +36,21 @@
             do_ocean = .true.,
             do_flux = .true.,
             atmos_npes = 0, 
+            ocean_npes = 0,
             concurrent = .false.     
             use_lag_fluxes=.false.    
             check_stocks = 0
+            do_chksum = .false.
+            do_endpoint_chksum = .false.
 /
 
  &diag_manager_nml
-            max_axes = 100,
-            max_files = 63,
-            max_num_axis_sets = 100,
-            max_input_fields = 699
-            max_output_fields = 699
+            max_axes = 600,
+            flush_nc_files=.false.
+            max_files = 600,
+            max_num_axis_sets = 600,
+            max_input_fields = 2000
+            max_output_fields = 5000
             mix_snapshot_average_fields=.false.
 /
 
@@ -57,8 +63,8 @@
  &fms_io_nml
             fms_netcdf_restart=.true.
             threading_read='multi'
-            max_files_r = 200
-            max_files_w = 200
+            max_files_r = 800
+            max_files_w = 800
             checksum_required = .false.
 /
 
