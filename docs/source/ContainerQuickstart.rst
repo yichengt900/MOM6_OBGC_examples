@@ -30,6 +30,7 @@ Build and run 1-D example using Docker
 -----------------------------------------
 User can follow the following steps to build and run MOM6-OBGC 1-D case within a Docker container.
 .. code-block::
+
    #Assume user is under /USER_HOME_PATH
    docker pull clouden90/1d_mom6_cobalt:v0.1 #This will pull docker image to your local machine
    git clone -b feature/4p-2023-10 https://github.com/yichengt900/MOM6_OBGC_examples.git --recursive #git clone MOM6-OBGC feature branch
@@ -58,6 +59,7 @@ where ``/absolute/path/to/writable/directory/`` refers to a writable directory (
 
 Then User can follow the following steps to build and run MOM6-OBGC 1-D case within a Singularity/Apptainer container.
 .. code-block::
+
    #Assume user is under /USER_HOME_PATH
    singularity pull 1d_mom6_cobalt.sif docker://clouden90/1d_mom6_cobalt:v0.1 #pull docker image and convert to sif
    git clone -b feature/4p-2023-10 https://github.com/yichengt900/MOM6_OBGC_examples.git --recursive #git clone MOM6-OBGC feature branch
