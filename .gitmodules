@@ -9,7 +9,7 @@
 [submodule "src/MOM6"]
 	path = src/MOM6
 	url = https://github.com/yichengt900/MOM6.git
-	branch = feature/bgc-budget-diags-index
+	branch = feature/4P-2023-10-diags
 [submodule "src/icebergs"]
 	path = src/icebergs
 	url = https://github.com/NOAA-GFDL/icebergs.git
