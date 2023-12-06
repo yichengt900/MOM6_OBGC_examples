@@ -1,15 +1,15 @@
 .. _Intro:
 
-****************
+====================================
 Introduction
-****************
+====================================
 
 This User's Guide provides guidance for setting and running the MOM6 Ocean Biogeochemical System.
 
 The Ocean Biogeochemical component is based on :cite:t:`StockEtAl2019` (2019)
 
 Disclaimer 
-*************
+==========================
 
 The United States Department of Commerce (DOC) GitHub project code is
 provided on an “as is” basis and the user assumes responsibility for its
@@ -26,6 +26,6 @@ bureau, shall not be used in any manner to imply endorsement of any
 commercial product or activity by DOC or the United States Government.
 
 References
-*************
+==========================
 
 .. bibliography:: references.bib
