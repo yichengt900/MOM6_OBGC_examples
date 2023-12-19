@@ -2,9 +2,9 @@ name: Continuous Delivery of mom6_obgc_1d Container
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "dev/cefi" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "dev/cefi" ]
 
 jobs:
   deploy:
