@@ -6,10 +6,6 @@
 	path = src/FMS
 	url = https://github.com/NOAA-GFDL/FMS.git
         branch = 2022.04
-[submodule "src/MOM6"]
-	path = src/MOM6
-	url = https://github.com/yichengt900/MOM6.git
-	branch = feature/4P-2023-10-diags
 [submodule "src/icebergs"]
 	path = src/icebergs
 	url = https://github.com/NOAA-GFDL/icebergs.git
@@ -30,11 +26,15 @@
 	path = src/ice_param
 	url = https://github.com/NOAA-GFDL/ice_param.git
 	branch = 2021.03
-[submodule "src/ocean_BGC"]
-	path = src/ocean_BGC
-	url = https://github.com/yichengt900/ocean_BGC.git
-	branch = feature/4P-2023-10-diags
 [submodule "src/SIS2"]
 	path = src/SIS2
 	url = https://github.com/NOAA-GFDL/SIS2.git
 	branch = dev/gfdl
+[submodule "src/ocean_BGC"]
+	path = src/ocean_BGC
+	url = https://github.com/yichengt900/ocean_BGC.git
+	branch = feature/4P-2023-10-diags
+[submodule "src/MOM6"]
+	path = src/MOM6
+	url = https://github.com/yichengt900/MOM6.git
+	branch = feature/4P-2023-10-diags
