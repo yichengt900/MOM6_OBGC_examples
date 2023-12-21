@@ -29,7 +29,8 @@ To build and run the `MOM6-OBGC <https://github.com/yichengt900/MOM6_OBGC_exampl
 Build and run 1-D example using Docker 
 -----------------------------------------
 User can follow the following steps to build and run MOM6-OBGC 1-D case within a Docker container.
-.. code-block::
+
+.. code-block:: console
 
    #Assume user is under /USER_HOME_PATH
    docker pull clouden90/1d_mom6_cobalt:v0.1 #This will pull docker image to your local machine
@@ -51,7 +52,7 @@ Build and run 1-D example using Singularity/Apptainer container
 -----------------------------------------
 For users working on systems with limited disk space in their ``/home`` directory, it is recommended to set the ``SINGULARITY_CACHEDIR`` and ``SINGULARITY_TMPDIR`` environment variables to point to a location with adequate disk space. For example:
 
-.. code-block:: 
+.. code-block:: console
 
    export SINGULARITY_CACHEDIR=/absolute/path/to/writable/directory/cache
    export SINGULARITY_TMPDIR=/absolute/path/to/writable/directory/tmp
@@ -59,7 +60,8 @@ For users working on systems with limited disk space in their ``/home`` director
 where ``/absolute/path/to/writable/directory/`` refers to a writable directory (usually a project or user directory within ``/lustre``, ``/work``, ``/scratch``, or ``/glade`` on NOAA RDHPC systems). If the ``cache`` and ``tmp`` directories do not exist already, they must be created with a ``mkdir`` command.
 
 Then User can follow the following steps to build and run MOM6-OBGC 1-D case within a Singularity/Apptainer container.
-.. code-block::
+
+.. code-block:: console
 
    #Assume user is under /USER_HOME_PATH
    singularity pull 1d_mom6_cobalt.sif docker://clouden90/1d_mom6_cobalt:v0.1 #pull docker image and convert to sif
