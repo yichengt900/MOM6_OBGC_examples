@@ -1,20 +1,10 @@
-From clouden90/1d_mom6_cobalt:latest
+From clouden90/1d_mom6_cobalt:v0.1
 
 SHELL ["/bin/bash","-c"]
 
 USER builder
 
 COPY --chown=builder:builder . /opt/MOM6_OBGC_examples
-
-WORKDIR /opt/datasets/OceanBGC_dataset
-
-RUN tar -zxvf OceanBGC_dataset.tar.gz; rm -rf OceanBGC_dataset.tar.gz
-
-WORKDIR /opt/datasets
-
-RUN tar -zxvf OM4_025.JRA.single_column.tar.gz; rm -rf OM4_025.JRA.single_column.tar.gz
-
-RUN sed -i '52s/static //' /opt/MOM6_OBGC_examples/src/FMS/affinity/affinity.c
 
 WORKDIR /opt/MOM6_OBGC_examples/builds
 
