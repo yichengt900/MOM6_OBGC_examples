@@ -1,3 +1,6 @@
+## Here's how to compile/run the 1D-MOM6-OBGC case using container approach
+[Instruction](https://mom6-obgc-examples.readthedocs.io/en/main/index.html)
+
 ## Here's how to compile the ocean-ice model (MOM6-SIS2 on gaea)
 (cd builds;  ./linux-build.bash -m gaea -p ncrc5.intel23 -t repro -f mom6sis2 )
 
