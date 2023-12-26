@@ -37,3 +37,4 @@
 [submodule "src/MOM6"]
 	path = src/MOM6
 	url = https://github.com/NOAA-CEFI-Regional-Ocean-Modeling/MOM6.git
+	branch = dev/cefi
