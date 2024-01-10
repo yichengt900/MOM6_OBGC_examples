@@ -1,0 +1,121 @@
+<freInclude xmlns:xi="http://www.w3.org/2003/XInclude">
+   <experiment name="MOM6_SIS2_GENERIC_4P_compile_symm">
+      <description>
+Make the executable for cefi ocean-ice-cobalt experiments.
+      </description>
+    <component name="fms" paths="FMS">
+      <source versionControl="git" root="https://github.com/NOAA-GFDL">
+        <codeBase version="$(FMS_TAG)"> FMS.git </codeBase>
+        <csh><![CDATA[
+              pushd FMS
+              git checkout $(FMS_GIT_HASH)
+              popd
+        ]]></csh>
+      </source>
+      <compile>
+            <cppDefs>-Duse_libMPI -Duse_netCDF $(F2003_FLAGS) -DMAXFIELDMETHODS_=600</cppDefs>
+      </compile>
+    </component>
+
+    <component name="mom6" requires="fms" paths="MOM6/config_src/memory/dynamic_symmetric MOM6/config_src/drivers/FMS_cap MOM6/src/*/ MOM6/src/*/*/ MOM6/config_src/external/ODA_hooks MOM6/config_src/external/stochastic_physics MOM6/config_src/external/drifters MOM6/config_src/external/database_comms ocean_BGC/generic_tracers ocean_BGC/mocsy/src MOM6/pkg/GSW-Fortran/modules MOM6/pkg/GSW-Fortran/toolbox MOM6/config_src/infra/FMS1">
+      <description domainName="Ocean" communityName="GFDL-MOM6" communityVersion="dev/cefi" communityGrid="regional"/>
+       <source versionControl="git" root="$(MOM6_SUBMODULE_URL)">
+        <codeBase version="dev/cefi"> MOM6.git </codeBase>
+        <csh><![CDATA[
+               pushd MOM6
+               git checkout $(MOM6_GIT_HASH)
+	       popd
+	       git clone $(OBGC_SUBMODULE_URL)/ocean_BGC.git
+	       pushd ocean_BGC
+               git checkout $(OBGC_GIT_HASH)
+               git submodule update --init --recursive
+	       popd	
+       ]]></csh>
+      </source>
+      <compile>
+        <cppDefs><![CDATA[ $(F2003_FLAGS) -DMAX_FIELDS_=100 -DNOT_SET_AFFINITY -D_USE_MOM6_DIAG -D_USE_GENERIC_TRACER  -DUSE_PRECISION=2 -D_FILE_VERSION="'"`git-version-string $<`"'" ]]></cppDefs>
+      </compile>
+    </component>
+      
+    <component name="sis2" paths="SIS2/config_src/dynamic_symmetric SIS2/config_src/external/Icepack_interfaces SIS2/src icebergs ice_param" requires="fms mom6" includeDir="$root/$(LIBS_ROOT)/src/MOM6/src/framework" >
+         <source versionControl="git" root="https://github.com/NOAA-GFDL">
+	   <codeBase version="dev/gfdl"> SIS2.git </codeBase> 
+           <csh><![CDATA[
+               pushd SIS2
+               git checkout $(SIS2_GIT_HASH)
+               popd
+         ]]></csh>
+         </source>
+         <compile>
+            <cppDefs><![CDATA[$(F2003_FLAGS) -D_FILE_VERSION="'"`git-version-string $<`"'"]]></cppDefs>
+         </compile>
+      </component>
+
+      <component name="icebergs" paths="/dev/null" requires="coupler">
+         <description domainName="NA" communityName="NA" communityVersion="NA" communityGrid="NA"/>
+         <source versionControl="git" root="https://github.com/NOAA-GFDL">
+           <codeBase version="dev/gfdl"> icebergs.git </codeBase>
+           <csh><![CDATA[
+               pushd icebergs
+               git checkout $(ICEBERGS_GIT_HASH)
+               popd
+         ]]></csh>
+         </source>
+      </component>
+
+      <component name="ice_param" paths="/dev/null" requires="coupler">
+         <description domainName="NA" communityName="NA" communityVersion="NA" communityGrid="NA"/>
+         <source versionControl="git" root="https://github.com/NOAA-GFDL">
+            <codeBase version="master"> ice_param.git </codeBase>
+            <csh><![CDATA[
+               pushd ice_param
+               git checkout $(ICEPARAM_GIT_HASH)
+               popd
+          ]]></csh>
+         </source>
+      </component>
+
+      <component name="land_null" paths="land_null" requires="fms">
+         <description domainName="NA" communityName="NA" communityVersion="NA" communityGrid="NA"/>
+         <source versionControl="git" root="https://github.com/NOAA-GFDL">
+            <codeBase version="$(NULL_TAG)"> land_null.git </codeBase>
+            <csh><![CDATA[
+               pushd land_null
+               git checkout $(LAND_GIT_HASH)
+               popd
+          ]]></csh>
+         </source>
+      </component>
+
+      <component name="atmos_null" paths="atmos_null" requires="fms">
+         <source versionControl="git" root="https://github.com/NOAA-GFDL">
+           <codeBase version="$(NULL_TAG)"> atmos_null.git </codeBase>
+           <csh><![CDATA[
+              pushd atmos_null
+              git checkout $(ATMOS_GIT_HASH)
+              popd
+         ]]></csh>
+         </source>
+         <compile>
+            <cppDefs>$(F2003_FLAGS) </cppDefs>
+        </compile>
+      </component>
+
+      <!--component name="coupler" paths="coupler/full coupler/shared" requires="fms land_null atmos_null sis2 mom6" -->
+      <component name="coupler" paths="coupler/full coupler/shared" requires="fms land_null atmos_null sis2 mom6" >
+        <description domainName="FMS Coupler" communityName="coupler" communityVersion="$(RELEASE)" communityGrid=""/>  
+        <source versionControl="git" root="https://github.com/NOAA-GFDL">
+          <codeBase version="$(COUPLER_TAG)"> coupler.git </codeBase>
+          <csh><![CDATA[
+             pushd coupler
+             git checkout $(COUPLER_GIT_HASH)
+             popd
+        ]]></csh>
+        </source>
+        <compile>
+            <cppDefs><![CDATA[$(F2003_FLAGS) -D_USE_LEGACY_LAND_ -Duse_AM3_physics -D_FILE_VERSION="'"`git-version-string $<`"'"]]></cppDefs>
+        </compile>
+      </component>
+   </experiment>
+
+</freInclude>
