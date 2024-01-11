@@ -1,3 +1,7 @@
+[![mom6_obgc_1d](https://github.com/NOAA-CEFI-Regional-Ocean-Modeling/MOM6_OBGC_examples/actions/workflows/mom6_cobalt_1D.yaml/badge.svg)](https://github.com/NOAA-CEFI-Regional-Ocean-Modeling/MOM6_OBGC_examples/actions/workflows/mom6_cobalt_1D.yaml)
+[![NWA12_RT](https://github.com/NOAA-CEFI-Regional-Ocean-Modeling/MOM6_OBGC_examples/actions/workflows/NWA12_RT.yaml/badge.svg)](https://github.com/NOAA-CEFI-Regional-Ocean-Modeling/MOM6_OBGC_examples/actions/workflows/NWA12_RT.yaml)
+[![Documentation Status](https://readthedocs.org/projects/cefi-mom6-obgc-examples/badge/?version=latest)](https://cefi-mom6-obgc-examples.readthedocs.io/en/latest/?badge=latest)
+
 ## Here's how to compile the ocean-ice model (MOM6-SIS2 on gaea)
 (cd builds;  ./linux-build.bash -m gaea -p ncrc5.intel23 -t repro -f mom6sis2 )
 

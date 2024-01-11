@@ -53,10 +53,7 @@ cat ocean_ice_cobalt_experiments.template.xml | sed -e "s/<FMS_GIT_HASH>/$hash_F
                                                     > ocean_ice_cobalt_experiments.xml
 
 
-# -- clean up tmp folders or runs from previos runs
-echo "remove MOM6_OBGC_examples folder"
-rm -rf MOM6_OBGC_examples
-
+# -- clean up work folders or runs from previos runs
 workflow_directory="/lustre/f2/dev/Yi-cheng.Teng/github/cefi_NWA12_regression_${CURRENT_DATE}"
 # Check if the directory exists
 if [ -d "$workflow_directory" ]; then
@@ -128,9 +125,11 @@ while :; do
     fi
 
     # Sleep for a short duration before checking again
-    sleep 300  # Adjust the sleep duration as needed
+    sleep 180  # Adjust the sleep duration as needed
 done
 
+# sleep for another 180s 
+sleep 180
 # check if restart create successfully or not
 check_file="/lustre/f2/scratch/Yi-cheng.Teng/github/cefi_NWA12_regression_${CURRENT_DATE}/NWA12_COBALT_V1/ncrc5.intel22-repro/archive/1x0m2d_1646x1o/restart/19930103.tar.ok"
 if [ -f "$check_file" ]; then

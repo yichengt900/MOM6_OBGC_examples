@@ -32,16 +32,15 @@ User can follow the following steps to build and run MOM6-OBGC 1-D case within a
 .. code-block::
 
    #Assume user is under /USER_HOME_PATH
-   docker pull clouden90/1d_mom6_cobalt:v0.1 #This will pull docker image to your local machine
-   git clone -b feature/4p-2023-10 https://github.com/yichengt900/MOM6_OBGC_examples.git --recursive #git clone MOM6-OBGC feature branch
-   cd USER_HOME_PATH//MOM6_OBGC_examples/exps/OM4.single_column.COBALT.p4/INPUT
-   rm ocean_hgrid.nc; wget https://gfdl-med.s3.amazonaws.com/OceanBGC_dataset/ocean_hgrid.nc
-   rm COBALT_2023_10_spinup_2003_subset.nc; wget https://gfdl-med.s3.amazonaws.com/OceanBGC_dataset/COBALT_2023_10_spinup_2003_subset.nc
+   docker pull clouden90/1d_mom6_cobalt:base #This will pull docker image to your local machine
+   git clone -b fdev/cefi https://github.com/NOAA-CEFI-Regional-Ocean-Modeling/MOM6_OBGC_examples.git --recursive #git clone MOM6-OBGC feature branch
+   cd USER_HOME_PATH//MOM6_OBGC_examples/exps
+   wget https://gfdl-med.s3.amazonaws.com/OceanBGC_dataset/1d_datasets.tar.gz && tar -zxvf 1d_datasets.tar.gz && rm -rf 1d_datasets.tar.gz
+   cd USER_HOME_PATH
    docker run --rm -v /USER_HOME_PATH:/work -it clouden90/1d_mom6_cobalt:v0.1 bash --login # run docker container
    cd /work/MOM6_OBGC_examples/builds
    ./linux-build.bash -m docker -p linux-gnu -t prod -f mom6sis2 #build MOM6-SIS2-OBGC
    cd /work/MOM6_OBGC_examples/exps
-   ln -fs /opt/datasets ./
    cd OM4.single_column.COBALT.p4
    mpirun -np 1 ../../builds/build/docker-linux-gnu/ocean_ice/prod/MOM6SIS2
 
@@ -61,16 +60,15 @@ Then User can follow the following steps to build and run MOM6-OBGC 1-D case wit
 .. code-block::
 
    #Assume user is under /USER_HOME_PATH
-   singularity pull 1d_mom6_cobalt.sif docker://clouden90/1d_mom6_cobalt:v0.1 #pull docker image and convert to sif
-   git clone -b feature/4p-2023-10 https://github.com/yichengt900/MOM6_OBGC_examples.git --recursive #git clone MOM6-OBGC feature branch
-   cd /USER_HOME_PATH/MOM6_OBGC_examples/exps/OM4.single_column.COBALT.p4/INPUT
-   rm ocean_hgrid.nc; wget https://gfdl-med.s3.amazonaws.com/OceanBGC_dataset/ocean_hgrid.nc
-   rm COBALT_2023_10_spinup_2003_subset.nc; wget https://gfdl-med.s3.amazonaws.com/OceanBGC_dataset/COBALT_2023_10_spinup_2003_subset.nc
+   singularity pull 1d_mom6_cobalt.sif docker://clouden90/1d_mom6_cobalt:base #pull docker image and convert to sif
+   git clone -b fdev/cefi https://github.com/NOAA-CEFI-Regional-Ocean-Modeling/MOM6_OBGC_examples.git --recursive #git clone MOM6-OBGC feature branch
+   cd USER_HOME_PATH//MOM6_OBGC_examples/exps
+   wget https://gfdl-med.s3.amazonaws.com/OceanBGC_dataset/1d_datasets.tar.gz && tar -zxvf 1d_datasets.tar.gz && rm -rf 1d_datasets.tar.gz
+   cd USER_HOME_PATH
    singularity shell -B /USER_HOME_PATH:/work -e /USER_HOME_PATH/1d_mom6_cobalt.sif
    cd /work/MOM6_OBGC_examples/builds
    ./linux-build.bash -m docker -p linux-gnu -t prod -f mom6sis2 #build MOM6-SIS2-OBGC
    cd /work/MOM6_OBGC_examples/exps
-   ln -fs /opt/datasets ./
    cd OM4.single_column.COBALT.p4
    mpirun -np 1 ../../builds/build/docker-linux-gnu/ocean_ice/prod/MOM6SIS2
 

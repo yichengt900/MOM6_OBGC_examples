@@ -1,4 +1,4 @@
-name: Continuous Delivery of mom6_obgc_1d Container
+name: mom6_obgc_1d
 
 on:
   push:
@@ -7,10 +7,11 @@ on:
     branches: [ "dev/cefi" ]
 
 jobs:
-  deploy:
-    name: mom6_cobalt 1d CI/CD Workflow 
+  build:
     runs-on: ubuntu-latest
-    environment: production
+
+    env:
+      PR_NUMBER: ${{ github.event.number }}
 
     steps:        
     - name: Checkout
@@ -18,16 +19,16 @@ jobs:
       with:
         submodules: recursive
         
-#    - uses: jitterbit/get-changed-files@v1
-#      id: abc
-#      with:
-#        format: space-delimited
-#        token: ${{ secrets.GITHUB_TOKEN }}        
+    - uses: jitterbit/get-changed-files@v1
+      id: abc
+      with:
+        format: space-delimited
+        token: ${{ secrets.GITHUB_TOKEN }}        
           
 #    - name: Login to DockerHub Registry
 #      run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
-    - name: Build Docker Image
+    - name: Build mom6_obgc 1D Docker Image
       run: |
         echo "maximize disk space on git-runner ..."
         df -h 
@@ -39,7 +40,7 @@ jobs:
         echo "docker image build ..."
         docker build --file "./tests/Dockerfile.ci" -t mom6_obgc_1d:develop .
         
-    - name: Check Docker Image
+    - name: Check mom6_obgc 1D Docker Image build
       run: | 
        docker images 
        if [[ $(docker image inspect mom6_obgc_1d:develop) ]]; then
@@ -48,6 +49,19 @@ jobs:
             echo "mom6_obgc_1d:develop was not generated ..."
             exit 1
        fi
+
+    - name: Add "NWA12_RT_gaea_c5" label on success
+      if: success()
+      run: |
+        TOKEN=${{ secrets.GITHUB_TOKEN }}
+        RT_TEST_LABEL="pass_1d_test"
+
+        # Add the "pass_1d_test" label
+        curl -X POST \
+          -H "Authorization: Bearer $TOKEN" \
+          -H "Accept: application/vnd.github.v3+json" \
+          "https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$PR_NUMBER/labels" \
+          -d "{\"labels\":[\"$RT_TEST_LABEL\"]}"
 
 #    - name: Docker Logout
 #      run: |

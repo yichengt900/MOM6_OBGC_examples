@@ -4,24 +4,29 @@ name: NWA12_RT
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "dev/cefi" ]
+  # Triggers the workflow on pull request events as well as specific label
   pull_request:
     branches: [ "dev/cefi" ]
+    types: [ labeled ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+  # This workflow contains a single job called "NWA12_RT_run"
+  NWA12_RT_run:
+    # run RT only when label 'NWA12_RT_gaea_c5' is on
+    if: ${{ github.event.label.name == 'NWA12_RT_gaea_c5' }}
     # The type of runner that the job will run on
     runs-on: self-hosted
 
+    env:
+      PR_NUMBER: ${{ github.event.number }}
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -32,3 +37,26 @@ jobs:
           pwd
           cd ci
           bash create_run_xml_from_template.bash 
+
+      - name: Add "pass_NWA12_RT" label on success
+        if: success() && contains(github.event.label.name, 'NWA12_RT_gaea_c5')
+        run: |
+          TOKEN=${{ secrets.GITHUB_TOKEN }}
+          RT_TEST_LABEL="NWA12_RT_gaea_c5"
+          PASS_LABEL="pass_NWA12_RT"
+
+          # Remove the "NWA12_RT_gaea_c5" label
+          curl -X DELETE \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$PR_NUMBER/labels/$RT_TEST_LABEL"
+    
+
+          # Add the "pass_NWA12_RT" label
+          curl -X POST \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$PR_NUMBER/labels" \
+            -d "{\"labels\":[\"$PASS_LABEL\"]}"
+            
+
