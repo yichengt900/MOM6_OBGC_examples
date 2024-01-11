@@ -50,7 +50,7 @@ jobs:
             exit 1
        fi
 
-    - name: Add "NWA12_RT_gaea_c5" label on success
+    - name: Add "pass_1d_test" label on success
       if: success()
       run: |
         TOKEN=${{ secrets.GITHUB_TOKEN }}
