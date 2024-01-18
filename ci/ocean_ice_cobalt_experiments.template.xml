@@ -6,7 +6,9 @@ This xml consists of ocean-ice-cobalt examples with regional MOM6.
 
 On Gaea:
 module use -a /ncrc/home2/fms/local/modulefiles
-module load fre/bronx-20
+module load fre/bronx-21
+export DEV=/gpfs/f5/cefi/scratch
+export SCRATCH=/gpfs/f5/cefi/scratch
 fremake -f -F -s -x ocean_ice_cobalt_experiments.xml -p ncrc5.intel22 -t repro MOM6_SIS2_GENERIC_4P_compile_symm
 frerun -o -x ocean_ice_cobalt_experiments.xml -p ncrc5.intel22 -q debug -r NWA12_RT -t repro NWA12_COBALT_V1 
 frecheck -I NWA12_COBALT_V1_1x0m2d_1646x1o,ocean_ice_cobalt_experiments.xml  -x ocean_ice_cobalt_experiments.xml -p ncrc5.intel22 -r NWA12_RT -t repro NWA12_COBALT_V1
@@ -14,7 +16,7 @@ frecheck -I NWA12_COBALT_V1_1x0m2d_1646x1o,ocean_ice_cobalt_experiments.xml  -x 
 
 <experimentSuite rtsVersion="4" xmlns:xi="http://www.w3.org/2001/XInclude">
 
-  <property name="FRE_VERSION"     value="bronx-20"/>                      <!-- fre version to be used -->
+  <property name="FRE_VERSION"     value="bronx-21"/>                      <!-- fre version to be used -->
 
   <property name="RELEASE"       value="2022.04"/>                         <!-- git tag for general component source code-->
   <property name="FMS_TAG"       value="$(RELEASE)"/>                      <!-- git tag for shared source code -->
@@ -48,7 +50,7 @@ frecheck -I NWA12_COBALT_V1_1x0m2d_1646x1o,ocean_ice_cobalt_experiments.xml  -x 
   <property name="AWG_INPUT_HOME_GAEA"  value=""/>
   <property name="AWG_INPUT_HOME_GFDL"  value=""/>
   <property name="append_to_setup_csh" value="set fyear=`echo $baseDate | cut -c1-4`"/>
-  <property name="ACR" value="/lustre/f2/dev/Yi-cheng.Teng/github/ci_data"/>
+  <property name="ACR" value="/gpfs/f5/cefi/proj-shared/github/ci_data"/>
   <property name="reference_tag" value="NWA12_COBALT_v1_1x0m2d_1646x1o"/>
 
   <!-- HPC platforms -->
