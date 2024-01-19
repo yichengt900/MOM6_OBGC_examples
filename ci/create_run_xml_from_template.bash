@@ -9,17 +9,20 @@ submodules="FMS MOM6 ocean_BGC SIS2 atmos_null coupler ice_param icebergs land_n
 
 # --- get the remote URL for ocean_BGC  & MOM6 repos
 pushd ../ 
-git config --file .gitmodules --get submodule.src/ocean_BGC.url
+#git config --file .gitmodules --get submodule.src/ocean_BGC.url
 export OBGC_SUBMODULE_URL=$(git config --file .gitmodules --get submodule.src/ocean_BGC.url | sed 's|/ocean_BGC\.git$||')
-git config --file .gitmodules --get submodule.src/MOM6.url
+export OBGC_BRANCH_NAME=$(git config --file .gitmodules --get-regexp '^submodule.src/ocean_BGC.branch' | awk '{print $2}')
+#git config --file .gitmodules --get submodule.src/MOM6.url
 export MOM6_SUBMODULE_URL=$(git config --file .gitmodules --get submodule.src/MOM6.url | sed 's|/MOM6\.git$||')
+export MOM6_BRANCH_NAME=$(git config --file .gitmodules --get-regexp '^submodule.src/MOM6.branch' | awk '{print $2}')
 popd
 
 # --- get the hash for the various repos
 if [ -f ocean_ice_cobalt_experiments.xml ]; then rm -rf ocean_ice_cobalt_experiments.xml ; fi
 pushd ../
 for mod in $submodules ; do
-  export hash_${mod}=$( git submodule status | grep $mod | awk '{print $1}' | cut -c 2-10 )
+  #export hash_${mod}=$( git submodule status | grep $mod | awk '{print $1}' | cut -c 2-10 )
+  export hash_${mod}=$( git submodule status | grep $mod | awk '{print $1}' | tr -d '-')
 done
 popd
 
@@ -40,7 +43,9 @@ echo "FMS tag: " $hash_FMS
 echo "ATMOS tag: " $hash_atmos_null
 echo "LAND tag: " $hash_land_null
 echo "MOM6_SUBMODULE_URL: " $MOM6_SUBMODULE_URL
-echo "OBGC_MOM6_SUBMODULE_URL: " $OBGC_SUBMODULE_URL
+echo "OBGC_SUBMODULE_URL: " $OBGC_SUBMODULE_URL
+echo "MOM6_BRANCH_NAME: " $MOM6_BRANCH_NAME
+echo "OBGC_BRANCH_NAME: " $OBGC_BRANCH_NAME
 
 # --- replace the hashes in the xml template
 
@@ -55,6 +60,8 @@ cat ocean_ice_cobalt_experiments.template.xml | sed -e "s/<FMS_GIT_HASH>/$hash_F
                                                     -e "s/<ATMOS_GIT_HASH>/$hash_atmos_null/g" \
 						    -e "s|<MOM6_SUBMODULE_URL>|$MOM6_SUBMODULE_URL|g" \
 						    -e "s|<OBGC_SUBMODULE_URL>|$OBGC_SUBMODULE_URL|g" \
+						    -e "s|<MOM6_BRANCH_NAME>|$MOM6_BRANCH_NAME|g" \
+						    -e "s|<OBGC_BRANCH_NAME>|$OBGC_BRANCH_NAME|g" \
 					            -e "s/<CURRENT_DATE>/$CURRENT_DATE/g" \
                                                     > ocean_ice_cobalt_experiments.xml
 
@@ -162,4 +169,4 @@ fi
 
 # Final clean-up
 rm -rf ${DEV}/${USER}/work/github/cefi_NWA12_regression_${CURRENT_DATE}
-#rm -rf ${DEV}/${USER}/github/cefi_NWA12_regression_${CURRENT_DATE}
+rm -rf ${DEV}/${USER}/ptmp/github/cefi_NWA12_regression_${CURRENT_DATE}

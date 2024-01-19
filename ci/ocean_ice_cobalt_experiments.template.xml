@@ -38,6 +38,9 @@ frecheck -I NWA12_COBALT_V1_1x0m2d_1646x1o,ocean_ice_cobalt_experiments.xml  -x 
   <property name="MOM6_SUBMODULE_URL"      value="<MOM6_SUBMODULE_URL>"/>   <!-- git URL for MOM6 source code --> 
   <property name="OBGC_SUBMODULE_URL"      value="<OBGC_SUBMODULE_URL>"/>   <!-- git URL for OBGC source code -->
 
+  <property name="MOM6_BRANCH_NAME"      value="<MOM6_BRANCH_NAME>"/>   <!-- git branch for MOM6 source code -->
+  <property name="OBGC_BRANCH_NAME"      value="<OBGC_BRANCH_NAME>"/>   <!-- git branch for OBGC source code -->
+
   <!-- Please make sure to change "YOURGROUPLETTER" to your group, such as b, f, g, m, o... -->
   <property name="NCRC_GROUP"     value="cefi"/><!-- Replace YOURGROUPLETTER with GFDL group letter -->
   <!--Production run properties. Users can modify these according to their need and/or performance analysis-->

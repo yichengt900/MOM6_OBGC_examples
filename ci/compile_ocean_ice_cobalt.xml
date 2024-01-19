@@ -20,12 +20,12 @@ Make the executable for cefi ocean-ice-cobalt experiments.
     <component name="mom6" requires="fms" paths="MOM6/config_src/memory/dynamic_symmetric MOM6/config_src/drivers/FMS_cap MOM6/src/*/ MOM6/src/*/*/ MOM6/config_src/external/ODA_hooks MOM6/config_src/external/stochastic_physics MOM6/config_src/external/drifters MOM6/config_src/external/database_comms ocean_BGC/generic_tracers ocean_BGC/mocsy/src MOM6/pkg/GSW-Fortran/modules MOM6/pkg/GSW-Fortran/toolbox MOM6/config_src/infra/FMS1">
       <description domainName="Ocean" communityName="GFDL-MOM6" communityVersion="dev/cefi" communityGrid="regional"/>
        <source versionControl="git" root="$(MOM6_SUBMODULE_URL)">
-        <codeBase version="dev/cefi"> MOM6.git </codeBase>
+        <codeBase version="$(MOM6_BRANCH_NAME)"> MOM6.git </codeBase>
         <csh><![CDATA[
                pushd MOM6
                git checkout $(MOM6_GIT_HASH)
 	       popd
-	       git clone $(OBGC_SUBMODULE_URL)/ocean_BGC.git
+	       git clone -b $(OBGC_BRANCH_NAME) $(OBGC_SUBMODULE_URL)/ocean_BGC.git
 	       pushd ocean_BGC
                git checkout $(OBGC_GIT_HASH)
                git submodule update --init --recursive
