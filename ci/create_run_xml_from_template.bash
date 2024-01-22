@@ -167,6 +167,16 @@ else
     exit 100
 fi
 
+# Check 
+if [ -d 19930101.extra.results ]; then rm -rf 19930101.extra.results ; fi
+tar -xvf ${DEV}/${USER}/github/cefi_NWA12_regression_${CURRENT_DATE}/NWA12_COBALT_V1/ncrc5.intel22-repro/archive/1x0m2d_1646x1o/ascii/19930101.ascii_out.tar ./19930101.extra.results/
+# MOM_parameter_doc.all
+diff -q ./19930101.extra.results/MOM_parameter_doc.all /gpfs/f5/cefi/proj-shared/github/ci_data/reference/NWA12_RT/1x0m2d_1646x1o/ascii/19930101.extra.results/MOM_parameter_doc.all > /dev/null || { echo "Error: MOM_parameter_doc.all are different, check and update ref! Exiting now..."; exit 1; }
+# SIS_parameter_doc.all
+diff -q ./19930101.extra.results/SIS_parameter_doc.all /gpfs/f5/cefi/proj-shared/github/ci_data/reference/NWA12_RT/1x0m2d_1646x1o/ascii/19930101.extra.results/SIS_parameter_doc.all > /dev/null || { echo "Error: SIS_parameter_doc.all are different, check and update ref! Exiting now..."; exit 1; }
+# ocean.stats
+diff -q ./19930101.extra.results/ocean.stats /gpfs/f5/cefi/proj-shared/github/ci_data/reference/NWA12_RT/1x0m2d_1646x1o/ascii/19930101.extra.results/ocean.stats > /dev/null || { echo "Error: ocean.stats are different, check and update ref! Exiting now..."; exit 1; }
+
 # Final clean-up
 rm -rf ${DEV}/${USER}/work/github/cefi_NWA12_regression_${CURRENT_DATE}
 rm -rf ${DEV}/${USER}/ptmp/github/cefi_NWA12_regression_${CURRENT_DATE}

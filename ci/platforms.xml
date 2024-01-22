@@ -6,14 +6,14 @@
       <compiler type="intel-classic" version="2022.0.2"/>
       <project>$(NCRC_GROUP)</project>
       <directory stem="$(FRE_STEM)">
-        <root>$DEV/$USER/$(FRE_STEM)</root>
-        <scripts>$DEV/$USER/$(FRE_STEM)$(DEBUGLEVEL)/$(name)/$(platform)-$(target)/scripts</scripts>
-        <state>$DEV/$USER/$(FRE_STEM)$(DEBUGLEVEL)/$(name)/$(platform)-$(target)/state</state>
-        <src>$DEV/$USER/$(FRE_STEM)/$(BUILD_DATE)/$(name)/src</src>
-        <exec>$DEV/$USER/$(FRE_STEM)/$(BUILD_DATE)/$(name)/$(platform)-$(target)/exec</exec>
-        <archive>$SCRATCH/$USER/$(stem)$(DEBUGLEVEL)/$(name)/$(platform)-$(target)/archive</archive>
-        <stdout>$SCRATCH/$USER/$(stem)$(DEBUGLEVEL)/$(name)/$(platform)-$(target)/stdout</stdout>
-        <work>$SCRATCH/$USER/work/$(stem)/$FRE_JOBID</work>
+        <root>/gpfs/f5/$(project)/scratch/$USER/$(stem)</root>
+        <scripts>$(rootDir)/$(name)/$(platform)-$(target)/scripts</scripts>
+        <state>$(rootDir)/$(name)/$(platform)-$(target)/state</state>
+        <src>$(rootDir)/$(name)/src</src>
+        <exec>$(rootDir)/$(name)/$(platform)-$(target)/exec</exec>
+        <archive>$(rootDir)/$(name)/$(platform)-$(target)/archive</archive>
+        <stdout>$(rootDir)/$(name)/$(platform)-$(target)/stdout</stdout>
+	<work>/gpfs/f5/$(project)/scratch/$USER/work/$(stem)/$FRE_JOBID</work>
       </directory>
       <property name="EXEC_ROOT"         value="$DEV/$USER/$(stem)/$(BUILD_DATE)"/>
       <property name="F2003_FLAGS"       value=" -DINTERNAL_FILE_NML -g "/>
