@@ -152,8 +152,9 @@ else
 fi
 
 # check with references
+export TMPDIR=$PWD/tmp
 if [ -f check.log ]; then rm -rf check.log ; fi
-frecheck -x ocean_ice_cobalt_experiments.xml -p ncrc5.intel22 -r NWA12_RT -t repro NWA12_COBALT_V1 > check.log
+frecheck -v -x ocean_ice_cobalt_experiments.xml -p ncrc5.intel22 -r NWA12_RT -t repro NWA12_COBALT_V1 > check.log
 
 # String to check
 expected_string="REFERENTIALLY   PASSED: NWA12_COBALT_V1"
