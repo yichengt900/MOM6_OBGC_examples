@@ -38,7 +38,7 @@ jobs:
         sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         df -h
         echo "docker image build ..."
-        docker build --file "./tests/Dockerfile.ci" -t mom6_obgc_1d:develop .
+        docker build --file "./ci/docker/Dockerfile.ci" -t mom6_obgc_1d:develop .
         
     - name: Check mom6_obgc 1D Docker Image build
       run: | 
