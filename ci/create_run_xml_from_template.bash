@@ -136,20 +136,27 @@ while :; do
     fi
 
     # Sleep for a short duration before checking again
-    sleep 180  # Adjust the sleep duration as needed
+    sleep 120  # Adjust the sleep duration as needed
 done
 
-# sleep for another 180s 
-sleep 180
 # check if restart create successfully or not
 check_file="${DEV}/${USER}/github/cefi_NWA12_regression_${CURRENT_DATE}/NWA12_COBALT_V1/ncrc5.intel22-repro/archive/1x0m2d_1646x1o/restart/19930103.tar.ok"
-if [ -f "$check_file" ]; then
-    echo "restart files exist successfully: $check_file"
-else
-    echo "NWA12 RT is not done within the specified duration."
-    echo "Please check ${DEV}/${USER}/github/cefi_NWA12_regression_${CURRENT_DATE}/NWA12_COBALT_V1/ncrc5.intel22-repro/stdout/run/NWA12_COBALT_V1_1x0m2d_1646x1o.o$rt_jobid"
-    exit 10
-fi
+for attempt in {1..6}; do
+    if [ -f "$check_file" ]; then
+        echo "Restart files exist successfully: $check_file"
+        break  # Exit the loop if the file is found
+    else
+        if [ "$attempt" -lt 6 ]; then
+            echo "Sleeping for 120 seconds before the next attempt $attempt..."
+            sleep 120
+        else
+            echo "Maximum attempts reached."
+	    echo "NWA12 RT is not done within the specified duration."
+	    echo "Please check ${DEV}/${USER}/github/cefi_NWA12_regression_${CURRENT_DATE}/NWA12_COBALT_V1/ncrc5.intel22-repro/stdout/run/NWA12_COBALT_V1_1x0m2d_1646x1o.o$rt_jobid"
+            exit 10
+        fi
+    fi
+done
 
 # check with references
 export TMPDIR=$PWD/tmp

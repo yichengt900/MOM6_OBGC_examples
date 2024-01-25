@@ -27,7 +27,7 @@ jobs:
           
 #    - name: Login to DockerHub Registry
 #      run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-
+          
     - name: Build mom6_obgc 1D Docker Image
       run: |
         echo "maximize disk space on git-runner ..."
@@ -38,8 +38,8 @@ jobs:
         sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         df -h
         echo "docker image build ..."
-        docker build --file "./tests/Dockerfile.ci" -t mom6_obgc_1d:develop .
-        
+        docker build --file "./ci/docker/Dockerfile.ci" -t mom6_obgc_1d:develop .
+
     - name: Check mom6_obgc 1D Docker Image build
       run: | 
        docker images 
@@ -49,19 +49,6 @@ jobs:
             echo "mom6_obgc_1d:develop was not generated ..."
             exit 1
        fi
-
-    - name: Add "pass_1d_test" label on success
-      if: success()
-      run: |
-        TOKEN=${{ secrets.GITHUB_TOKEN }}
-        RT_TEST_LABEL="pass_1d_test"
-
-        # Add the "pass_1d_test" label
-        curl -X POST \
-          -H "Authorization: Bearer $TOKEN" \
-          -H "Accept: application/vnd.github.v3+json" \
-          "https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$PR_NUMBER/labels" \
-          -d "{\"labels\":[\"$RT_TEST_LABEL\"]}"
 
 #    - name: Docker Logout
 #      run: |
