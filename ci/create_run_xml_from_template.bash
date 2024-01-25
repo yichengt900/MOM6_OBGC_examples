@@ -27,10 +27,17 @@ done
 popd
 
 #define env
-export DEV=/gpfs/f5/cefi/scratch
-export SCRATCH=/gpfs/f5/cefi/scratch
+if [ "$#" -eq 1 ]; then
+    export ACCOUNT="$1"
+else
+    # If no ACCOUNT provided, set to default value
+    export ACCOUNT="cefi"
+fi
+export DEV=/gpfs/f5/${ACCOUNT}/scratch
+export SCRATCH=/gpfs/f5/${ACCOUNT}/scratch
 
 echo "Current date: " $CURRENT_DATE
+echo "ACCOUNT: " $ACCOUNT
 echo "DEV: " $DEV
 echo "SCRATCH: " $SCRATCH
 echo "MOM6 tag: " $hash_MOM6
@@ -63,6 +70,7 @@ cat ocean_ice_cobalt_experiments.template.xml | sed -e "s/<FMS_GIT_HASH>/$hash_F
 						    -e "s|<MOM6_BRANCH_NAME>|$MOM6_BRANCH_NAME|g" \
 						    -e "s|<OBGC_BRANCH_NAME>|$OBGC_BRANCH_NAME|g" \
 					            -e "s/<CURRENT_DATE>/$CURRENT_DATE/g" \
+						    -e "s/<ACCOUNT>/$ACCOUNT/g" \
                                                     > ocean_ice_cobalt_experiments.xml
 
 
