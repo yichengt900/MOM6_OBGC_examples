@@ -1,8 +1,8 @@
 #How to build MOM6-SIS2-cobalt on Mac
 
 # input datasets
-[Ocean_bgc dataset](https://drive.google.com/file/d/1yLzkKQccwAcOMBzRTQp8mYwUcyNb16Gh/view?usp=share_link)
-[OM4_025_JRA](https://drive.google.com/file/d/1QLA8a7S_fHWqwsgJLHssO0sRCs37ARxZ/)
+- [Ocean_bgc dataset](https://drive.google.com/file/d/1yLzkKQccwAcOMBzRTQp8mYwUcyNb16Gh/view?usp=share_link)
+- [OM4_025_JRA](https://drive.google.com/file/d/1QLA8a7S_fHWqwsgJLHssO0sRCs37ARxZ/)
 
 
 ## Install Homebrew
