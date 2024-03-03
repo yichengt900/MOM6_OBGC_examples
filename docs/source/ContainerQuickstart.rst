@@ -35,7 +35,7 @@ User can follow the following steps to build and run MOM6-OBGC 1-D case within a
    docker pull clouden90/1d_mom6_cobalt:base #This will pull docker image to your local machine
    git clone -b fdev/cefi https://github.com/NOAA-CEFI-Regional-Ocean-Modeling/MOM6_OBGC_examples.git --recursive #git clone MOM6-OBGC feature branch
    cd USER_HOME_PATH//MOM6_OBGC_examples/exps
-   wget https://gfdl-med.s3.amazonaws.com/OceanBGC_dataset/1d_datasets.tar.gz && tar -zxvf 1d_datasets.tar.gz && rm -rf 1d_datasets.tar.gz
+   wget ftp.gfdl.noaa.gov:/pub/Yi-cheng.Teng/1d_datasets.tar.gz && tar -zxvf 1d_datasets.tar.gz && rm -rf 1d_datasets.tar.gz
    cd USER_HOME_PATH
    docker run --rm -v /USER_HOME_PATH:/work -it clouden90/1d_mom6_cobalt:v0.1 bash --login # run docker container
    cd /work/MOM6_OBGC_examples/builds
@@ -63,7 +63,7 @@ Then User can follow the following steps to build and run MOM6-OBGC 1-D case wit
    singularity pull 1d_mom6_cobalt.sif docker://clouden90/1d_mom6_cobalt:base #pull docker image and convert to sif
    git clone -b fdev/cefi https://github.com/NOAA-CEFI-Regional-Ocean-Modeling/MOM6_OBGC_examples.git --recursive #git clone MOM6-OBGC feature branch
    cd USER_HOME_PATH//MOM6_OBGC_examples/exps
-   wget https://gfdl-med.s3.amazonaws.com/OceanBGC_dataset/1d_datasets.tar.gz && tar -zxvf 1d_datasets.tar.gz && rm -rf 1d_datasets.tar.gz
+   wget ftp.gfdl.noaa.gov:/pub/Yi-cheng.Teng/1d_datasets.tar.gz && tar -zxvf 1d_datasets.tar.gz && rm -rf 1d_datasets.tar.gz 
    cd USER_HOME_PATH
    singularity shell -B /USER_HOME_PATH:/work -e /USER_HOME_PATH/1d_mom6_cobalt.sif
    cd /work/MOM6_OBGC_examples/builds
