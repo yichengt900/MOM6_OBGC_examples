@@ -6,7 +6,7 @@ This xml consists of ocean-ice-cobalt examples with regional MOM6.
 
 On Gaea:
 module use -a /ncrc/home2/fms/local/modulefiles
-module load fre/bronx-21
+module load fre/bronx-22
 export DEV=/gpfs/f5/cefi/scratch
 export SCRATCH=/gpfs/f5/cefi/scratch
 fremake -f -F -s -x ocean_ice_cobalt_experiments.xml -p ncrc5.intel22 -t repro MOM6_SIS2_GENERIC_4P_compile_symm
@@ -16,7 +16,7 @@ frecheck -I NWA12_COBALT_V1_1x0m2d_1646x1o,ocean_ice_cobalt_experiments.xml  -x 
 
 <experimentSuite rtsVersion="4" xmlns:xi="http://www.w3.org/2001/XInclude">
 
-  <property name="FRE_VERSION"     value="bronx-21"/>                      <!-- fre version to be used -->
+  <property name="FRE_VERSION"     value="bronx-22"/>                      <!-- fre version to be used -->
 
   <property name="RELEASE"       value="2022.04"/>                         <!-- git tag for general component source code-->
   <property name="FMS_TAG"       value="$(RELEASE)"/>                      <!-- git tag for shared source code -->
