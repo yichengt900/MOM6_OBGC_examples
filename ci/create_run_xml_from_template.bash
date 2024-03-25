@@ -87,7 +87,7 @@ fi
 
 # Now compile mom6-sis2-cobalt 
 module use -a /ncrc/home2/fms/local/modulefiles
-module load fre/bronx-21
+module load fre/bronx-22
 echo "run fremake and submit compile job"
 fremake -f -F -x ocean_ice_cobalt_experiments.xml -p ncrc5.intel22 -t repro MOM6_SIS2_GENERIC_4P_compile_symm
 jobid=$(sbatch --parsable ${DEV}/${USER}/github/cefi_NWA12_regression_${CURRENT_DATE}/MOM6_SIS2_GENERIC_4P_compile_symm/ncrc5.intel22-repro/exec/compile_MOM6_SIS2_GENERIC_4P_compile_symm.csh | awk -F';' '{print $1}' | cut -f1)
