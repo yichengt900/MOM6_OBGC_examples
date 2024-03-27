@@ -513,7 +513,7 @@ MOM_OVERRIDE_EOF
           </resources>
         </run>	      
       </regression>
-      <reference restart="$(ACR)/reference/NWA12_RT/1x0m2d_1646x1o/restart/19930103.tar"/>
+      <reference restart="$(ACR)/reference/NWA12_RT/20240327/1x0m2d_1646x1o/restart/19930103.tar"/>
     </runtime>
 
     <postProcess>
